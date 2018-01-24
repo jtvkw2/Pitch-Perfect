@@ -27,10 +27,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         stopRecordingButton.isEnabled = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     var audioRecorder: AVAudioRecorder!
     @IBAction func recordAudio(_ sender: Any) {
         recordingLabel.text = "Recording in Progress"
@@ -66,7 +62,11 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
         }
         else{
-            print("recording was not successfull")
+            let alert = UIAlertController(title: "Recording Failed", message: @"Your recording was not successfull, please go back and try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
